@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- This is the link to the css of the heart (like button), got this from W3Schools.com 'https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.w3schools.com/icons/tryit.asp%3Ffilename%3Dtryicons_fa-heart&ved=2ahUKEwjLioPI-5qKAxUTSkEAHfb5AxMQFnoECB8QAQ&usg=AOvVaw3LOF7F-vZC2RgCV3zmbCMv'-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/stylesheet.css"> <!-- Link to the css file-->
+    <title>{% if title %}{{ title }}{% else %}No title specified{% endif %}</title>
+
+</head>
+<body>
+
+    <!--Navigation-->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand">Event Hub</a> <!-- Top left icon, no link to anything.-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                {% if session['user_id'] %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('create') }}">Create an event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('yourEvents') }}">Your events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('goingEvents') }}">RSVP'd events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('liked') }}">Liked events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('allEvents') }}">Discover events</a></li>
+
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="/">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+            {% if session['user_id'] %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('edit') }}">Edit profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!--Main Area-->
+    <div class="container-mt4">
+            
+            <div class="row-1">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="row-2">
+                            {% for message in messages %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/invites.js"></script><!-- Links to all the files in the js folder-->
+    <script src="/static/js/upvotes.js"></script>
+</body>
+</html>

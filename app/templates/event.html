@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+<!-- This is the all events page, on the website it is 'Discover Events' page-->
+{% block content %}
+<div class="container mt-4">
+    <h2>All Events</h2>
+    <form method="get" action="{{ url_for('allEvents') }}">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select name="category" id="categoryFilter" onchange="this.form.submit()">
+           
+            <option value="" {% if request.args.get('category') == '' %}selected{% endif %}>All Categories</option>
+            {% for option in ['Music', 'Art', 'Charity', 'Voluntary', 'Education', 'Technology', 'Sports', 'Careers and business', 'Travel and Outdoor', 'Leisure', 'Other'] %}
+                <option value="{{ option }}" {% if request.args.get('category') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select><!-- Filter for all the categories -->
+    </form>
+    
+
+    {% if events %}
+        
+        <div id="events-list" class="event-container">
+            {% for event in events %}
+                <div class="event-card" id="event-card-{{ event.id }}">
+                    <div class="card-body">
+                        <p class="creator">Created by: {{ event.creator.username }}</p>
+                        <h5 class="card-title">{{ event.eventTitle }}</h5>
+                        <p class="card-text">Location: {{ event.eventPlace }}</p>
+                        <p class="card-text">Date: {{ event.eventDate }}</p>
+                        <p class="card-text">Category: {{ event.eventCategory }}</p>
+                        <p class="card-text">{{ event.eventDescription }}</p>
+                        <p class="card-text">
+                            Attendees: <span id="attendees-count-{{ event.id }}">{{ event.rsvps|length }}</span>
+                        </p>
+                        <div>
+                            {% if event.user_has_rsvped %} 
+                                <button class="btn btn-danger rsvp-button" data-event-id="{{ event.id }}">
+                                    Cancel RSVP
+                                </button>
+                            {% else %}
+                                <button class="btn btn-primary rsvp-button" data-event-id="{{ event.id }}">
+                                    RSVP
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="upvote-button" data-event-id="{{ event.id }}" style="cursor: pointer;">
+                            {% if event.user_has_upvoted %}
+                                <i class="fas fa-heart text-danger"></i><!-- The heart gets filled when the user presses it -->
+                            {% else %}
+                                <i class="far fa-heart text-muted"></i><!-- The heart goes white when the user presses it, if it is already filled in-->
+                            {% endif %}
+                        </span>
+                        <span id="upvotes-count-{{ event.id }}" class="ml-2">{{ event.upvotes_count }}</span> <!-- prints the count of the likes next to the heart icon-->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No events here right now! Be the first or check back in a bit!</p>
+    {% endif %}
+</div>
+{% endblock %}

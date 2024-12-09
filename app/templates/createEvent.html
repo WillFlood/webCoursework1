@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+<!--This is the page in which the user creates there own event to release-->
+{% block content %}
+    <div class="form-container">
+        <form method="post">
+            <p class="createFormTitle">CREATE AN EVENT!</p>
+            {{ form.hidden_tag() }}
+            <p>Title: {{ form.eventTitle() }}<br></p> 
+                {% for error in form.eventTitle.errors %}
+                <div class="alert alert-danger" role="alert">
+                    [{{ error }}]
+                </div>
+                {% endfor %}
+
+            <p>Date: {{ form.eventDate() }}</p>
+                {% for error in form.eventDate.errors %}
+                <div class="alert alert-danger" role="alert">
+                    [{{ error }}]
+                </div>
+                {% endfor %}
+            
+            <p>Place: {{ form.eventPlace() }}</p>
+                {% for error in form.eventPlace.errors %}
+                <div class="alert alert-danger" role="alert">
+                    [{{ error }}]
+                </div>
+                {% endfor %}
+
+            <p>Category: {{ form.eventCategory() }}</p>
+                {% for error in form.eventCategory.errors %}
+                <div class="alert alert-danger" role="alert">
+                    [{{ error }}]
+                </div>
+                {% endfor %}
+            
+            <p>Description: {{ form.eventDescription() }}</p>
+                {% for error in form.eventDescription.errors %}
+                <div class="alert alert-danger" role="alert">
+                    [{{ error }}]
+                </div>
+                {% endfor %}
+
+            <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+<!-- This is the page that is named RSVP'd Events-->
+{% block content %}
+    <div class="container mt-4">
+        <h2>Events You Are Going To</h2>
+        {% if rsvpd_events %}
+            <div id="events-list" class="event-container">
+                {% for event in rsvpd_events %} <!-- Only showing the events that the user has clicked the rsvp button to-->
+                        <div class="event-card" id="event-card-{{ event.id }}">
+                            <div class="card-body">
+                                <p class="creator">Created by: {{ event.creator.username }}</p>
+                                <h5 class="card-title">{{ event.eventTitle }}</h5>
+                                <p class="card-text">Location: {{ event.eventPlace }}</p>
+                                <p class="card-text">Date: {{ event.eventDate }}</p>
+                                <p class="card-text">{{ event.eventDescription }}</p>
+                                <p class="card-text">
+                                    Attendees: <span id="attendees-count-{{ event.id }}">{{ event.rsvps|length }}</span>
+                                </p>
+                                <p class="mini-message">You RSVP'd to this event</p> 
+                                <button class="btn btn-danger rsvp-button" data-event-id="{{ event.id }}">
+                                    Cancel RSVP
+                                </button>
+                            </div>
+                            <div class="card-footer">
+                                <span class="upvote-button" data-event-id="{{ event.id }}" style="cursor: pointer;">
+                                    {% if event.user_has_upvoted %}
+                                        <i class="fas fa-heart text-danger"></i>
+                                    {% else %}
+                                        <i class="far fa-heart text-muted"></i>
+                                    {% endif %}
+                                </span>
+                                <span id="upvotes-count-{{ event.id }}" class="ml-2">{{ event.upvotes_count }}</span>
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No events to display. RSVP to an event to see it here!</p>
+        {% endif %}
+    </div>
+{% endblock %}

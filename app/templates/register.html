@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+<!-- Register form, also not shown when the user is logged in-->
+{% block content %}
+    <div class="form-container">
+        <form method="post">
+            <p class="createFormTitle">REGISTER A NEW ACCOUNT</p>
+            {{ form.hidden_tag() }}
+
+            <p>Username: {{ form.username() }}</p>
+            {% for error in form.username.errors %}
+            <div class="alert alert-danger" role="alert">
+                [{{ error }}]
+            </div>
+            {% endfor %}
+
+            <p>Email: {{ form.email() }}</p>
+            {% for error in form.email.errors %}
+            <div class="alert alert-danger" role="alert">
+                [{{ error }}]
+            </div>
+            {% endfor %}
+
+            <p>Password: {{ form.password() }}</p>
+            {% for error in form.password.errors %}
+            <div class="alert alert-danger" role="alert">
+                [{{ error }}]
+            </div>
+            {% endfor %}
+
+            <p>Confirm Password: {{ form.confirmPassword() }}</p>
+            {% for error in form.confirmPassword.errors %}
+            <div class="alert alert-danger" role="alert">
+                [{{ error }}]
+            </div>
+            {% endfor %}
+
+            <p><input type="submit" class="btn btn-primary" value="Join!"></p>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+<!-- Only the events that you create, you can change-->
+{% block content %}
+    <div class="form-container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <input type="hidden" name="event_id" value="{{ event.id }}">
+        
+            <div class="form-group">
+                <label for="eventTitle">Title</label>
+                {{ form.eventTitle() }}
+                {% for error in form.eventTitle.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                <label for="eventDate">Date</label>
+                {{ form.eventDate() }}
+                {% for error in form.eventDate.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                <label for="eventPlace">Place</label>
+                {{ form.eventPlace() }}
+                {% for error in form.eventPlace.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                <label for="eventCategory">Category</label>
+                {{ form.eventCategory(class_="form-control") }}
+                {% for error in form.eventCategory.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                <label for="eventDescription">Description</label>
+                {{ form.eventDescription() }}
+                {% for error in form.eventDescription.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="alert alert-warning">
+                Be careful! If people have already RSVP'd, they may think this is a different event and won't come!
+            </div><!-- Alerting the users of the possible repercussions of their actions-->
+        
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+{% endblock %}

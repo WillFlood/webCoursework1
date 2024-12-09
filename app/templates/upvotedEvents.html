@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+<!-- This is called 'Liked events' on the actual website, at first was an upvote, but now a llike button-->
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Liked Events:</h2>
+    {% if likedEvents %} 
+        <div class="event-container">
+            {% for event in likedEvents %} <!-- Only showing the events that the user has rsvpd to-->
+                <div class="event-card">
+                    <div class="card-body">
+                        <p class="creator">Created by: {{ event.creator.username }}</p>
+                        <h5 class="card-title">{{ event.eventTitle }}</h5>
+                        <p class="card-text">Location: {{ event.eventPlace }}</p>
+                        <p class="card-text">Date: {{ event.eventDate }}</p>
+                        <p class="card-text">{{ event.eventDescription }}</p>
+                        <p class="card-text">
+                            Attendees: <span id="attendees-count-{{ event.id }}">{{ event.rsvps|length }}</span>
+                        </p>
+                        
+                        {% if event.user_has_rsvped %} 
+                            <button class="btn btn-danger rsvp-button" data-event-id="{{ event.id }}">
+                                Cancel RSVP
+                            </button>
+                        {% else %}
+                            <button class="btn btn-primary rsvp-button" data-event-id="{{ event.id }}">
+                                RSVP
+                            </button>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <span class="upvote-button" data-event-id="{{ event.id }}" style="cursor: pointer;">
+                            
+                            <i class="fas fa-heart text-danger"></i>
+                            {% if event.user_has_upvoted %}
+                                <i class="far fa-heart text-muted"></i>
+                            {% endif %}
+                        </span>
+                        <span id="upvotes-count-{{ event.id }}" class="ml-2">{{ event.upvotes_count }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No liked events. Press the heart icon on whichever event you like, and see it here!</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+<!-- Here is the About us page which appears before the users log in or register. 
+    This page explains what my website does. -->
+{% block content %}
+<div class="about-container">
+    <h1><u>About Us</u></h1>
+    <p>
+        Welcome to <strong>Event Hub</strong>, your one-stop solution for discovering, creating, and managing events! 
+        Our platform is designed to bring people together by making it easy to RSVP, upvote, and share events with others.
+    </p>
+
+    <h2>What We Offer</h2>
+    <ul>
+        <li><strong>Create Events:</strong> Organize your own events and invite others to join. This is great for businesses to promote a sale, or a limited time event happening 
+            or even if you need some volunteers! Your event, when created, can be viewed by anyone, reaching a wide audience.</li>
+        <li><strong>Discover Events:</strong> Explore a wide range of events created by users in various categories.</li>
+        <li><strong>RSVP with Ease:</strong> Let event organizers know you're attending with a simple RSVP feature.</li>
+        <li><strong>Upvote Events:</strong> Show your support for events you love by liking them. This also saves your events to a page in which you can come back to visit later! 
+            Liking an event is a great way if you are not sure whether you want to go to it!</li>
+        <li><strong>Manage Your Events:</strong> Keep track of events you've created, RSVP'd to, or liked in an easy-to-use dashboard.</li>
+    </ul>
+
+    <h2>Our Mission</h2>
+    <p>
+        At Event Hub, our mission is to make event planning and participation seamless and enjoyable. 
+        Whether you're organizing a community gathering, planning a concert, or simply exploring events in your area, 
+        our platform is here to connect you with like-minded individuals.
+    </p>
+
+    <h2>Why Choose Event Hub?</h2>
+    <p>
+        - Easy-to-use interface for creating and discovering events.<br>
+        - A community-driven platform where users can engage with events that matter to them.<br>
+        - Real-time updates on attendees, likes, and event details.<br>
+        - Secure and personalized accounts for all users.
+    </p>
+
+    <h2>Get Started</h2>
+    <p>
+        Ready to join the Event Hub community? 
+        <a href="{{ url_for('register') }}">Sign up today</a> and start exploring events that match your interests. 
+        Already have an account? <a href="{{ url_for('login') }}">Log in</a> and dive in!
+    </p>
+</div>
+{% endblock %}
